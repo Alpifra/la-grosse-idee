@@ -1,0 +1,24 @@
+{
+  "name": "la-grosse-idee",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "npx webpack",
+    "watch": "npx webpack -w",
+    "serve": "cd ./public/ ; lite-server ./src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^6.7.1",
+    "mini-css-extract-plugin": "^2.6.0",
+    "sass": "^1.36.0",
+    "sass-loader": "^12.1.0",
+    "webpack": "^5.46.0",
+    "webpack-cli": "^4.7.2"
+  }
+}
