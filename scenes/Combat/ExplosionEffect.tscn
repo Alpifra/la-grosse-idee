@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/Combat/ExplosionEffect.gd" id="1"]
+
+; ── Effet explosion — draw_rect uniquement, zéro Polygon2D / AnimatedSprite2D ─
+; 6 frames animées par ExplosionEffect.gd::_draw()
+; API : $ExplosionEffect.play("explode")
+;       Connecter animation_finished pour queue_free()
+[node name="ExplosionEffect" type="Node2D"]
+script  = ExtResource("1")
+visible = false

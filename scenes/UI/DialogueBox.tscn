@@ -1,0 +1,121 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/UI/DialogueManager.gd" id="1"]
+
+; ── Boîte de dialogue NES-style ───────────────────────────────────────────────
+; Fond bleu nuit opaque + bordure blanche épaisse + coins arrondis
+; Inspiré des boîtes DQ / FF NES (bleu #0A0A24, bordure blanche)
+
+; StyleBox principal — fond de la boîte
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main"]
+bg_color = Color(0.04, 0.04, 0.14, 0.94)
+border_width_left   = 3
+border_width_top    = 3
+border_width_right  = 3
+border_width_bottom = 3
+border_color = Color(0.92, 0.92, 1.00, 1)
+corner_radius_top_left     = 4
+corner_radius_top_right    = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left  = 4
+shadow_color = Color(0.00, 0.00, 0.00, 0.60)
+shadow_size  = 5
+shadow_offset = Vector2(2, 3)
+content_margin_left   = 8
+content_margin_top    = 6
+content_margin_right  = 8
+content_margin_bottom = 6
+
+; StyleBox du tag de nom — boîte plus petite, coins haut arrondis seulement
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nametag"]
+bg_color = Color(0.04, 0.04, 0.14, 1.00)
+border_width_left   = 3
+border_width_top    = 3
+border_width_right  = 3
+border_width_bottom = 0
+border_color = Color(0.92, 0.92, 1.00, 1)
+corner_radius_top_left     = 3
+corner_radius_top_right    = 3
+corner_radius_bottom_right = 0
+corner_radius_bottom_left  = 0
+content_margin_left   = 6
+content_margin_top    = 3
+content_margin_right  = 6
+content_margin_bottom = 3
+
+; Couleur texte (blanc pur NES)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_label"]
+
+[node name="DialogueBox" type="CanvasLayer"]
+script = ExtResource("1")
+layer  = 10
+
+; ── Boîte principale (bas de l'écran) ─────────────────────────────────────────
+[node name="DialoguePanel" type="Panel" parent="."]
+anchor_left   = 0.0
+anchor_top    = 1.0
+anchor_right  = 1.0
+anchor_bottom = 1.0
+offset_left   = 6.0
+offset_top    = -56.0
+offset_right  = -6.0
+offset_bottom = -4.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_main")
+
+; Tag de nom (ancré en haut-gauche de la boîte, légèrement au-dessus)
+[node name="NameTag" type="Panel" parent="DialoguePanel"]
+anchor_left  = 0.0
+anchor_top   = 0.0
+offset_left  = 4.0
+offset_top   = -18.0
+offset_right = 64.0
+offset_bottom = 0.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nametag")
+visible = false
+
+[node name="NameLabel" type="Label" parent="DialoguePanel/NameTag"]
+anchors_preset = 15
+anchor_right  = 1.0
+anchor_bottom = 1.0
+text = ""
+theme_override_colors/font_color = Color(1.0, 1.0, 0.85, 1)
+theme_override_font_sizes/font_size = 8
+
+; Contenu de la boîte
+[node name="Margin" type="MarginContainer" parent="DialoguePanel"]
+anchors_preset = 15
+anchor_right  = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left   = 10
+theme_override_constants/margin_top    = 6
+theme_override_constants/margin_right  = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="VBox" type="VBoxContainer" parent="DialoguePanel/Margin"]
+anchors_preset = 15
+anchor_right  = 1.0
+anchor_bottom = 1.0
+
+; Texte principal (typewriter)
+[node name="Text" type="RichTextLabel" parent="DialoguePanel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+fit_content = true
+bbcode_enabled = true
+text = ""
+theme_override_colors/default_color = Color(1.0, 1.0, 1.0, 1)
+theme_override_font_sizes/normal_font_size = 8
+scroll_active = false
+
+; Curseur ▼ clignotant (avancer)
+[node name="Cursor" type="Label" parent="DialoguePanel/Margin/VBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "▼"
+theme_override_colors/font_color = Color(1.0, 1.0, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+visible = false
+
+; Timer typewriter
+[node name="TypewriterTimer" type="Timer" parent="."]
+autostart = false

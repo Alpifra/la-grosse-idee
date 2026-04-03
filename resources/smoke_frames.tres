@@ -1,0 +1,54 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3]
+
+; ── SpriteFrames fumée — smoke_anim.png 740×575, grille 3×2 ──────────────────
+; Chaque frame : ~246×287 px
+; Ligne 0 → fumée montante (3 frames)
+; Ligne 1 → dispersion     (3 frames)
+; En jeu : scale ≈ 0.13 → ~32px
+
+[ext_resource type="Texture2D" path="res://assets/fx/smoke_anim.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="s0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 246, 287)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="s1"]
+atlas = ExtResource("1")
+region = Rect2(246, 0, 246, 287)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="s2"]
+atlas = ExtResource("1")
+region = Rect2(492, 0, 248, 287)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="s3"]
+atlas = ExtResource("1")
+region = Rect2(0, 288, 246, 287)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="s4"]
+atlas = ExtResource("1")
+region = Rect2(246, 288, 246, 287)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="s5"]
+atlas = ExtResource("1")
+region = Rect2(492, 288, 248, 287)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [
+	{"duration": 1.0, "texture": SubResource("s0")},
+	{"duration": 1.0, "texture": SubResource("s1")},
+	{"duration": 1.0, "texture": SubResource("s2")},
+	{"duration": 1.0, "texture": SubResource("s3")},
+	{"duration": 1.0, "texture": SubResource("s4")},
+	{"duration": 1.0, "texture": SubResource("s5")}
+],
+"loop": false,
+"name": &"smoke",
+"speed": 8.0
+}]

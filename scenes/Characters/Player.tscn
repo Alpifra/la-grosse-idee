@@ -1,0 +1,110 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/World/PlayerController.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(10.0, 18.0)
+
+; ── Aventurier style DQ2 — sprite ~16×27 px ───────────────────────────────────
+; Palette : cheveux bruns · peau claire · chemise blanche · pantalon cyan · bottes marron
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1")
+
+[node name="Visual" type="Node2D" parent="."]
+
+; ── Corps (dessiné en premier = derrière) ─────────────────────────────────────
+
+; Chemise blanche
+[node name="Body" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(-5, -10, 5, -10, 5, -2, -5, -2)
+color = Color(0.96, 0.94, 0.90, 1)
+
+; Manches — bras gauche
+[node name="ArmL" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(-8, -9, -5, -9, -5, -4, -8, -4)
+color = Color(0.96, 0.94, 0.90, 1)
+
+; Manches — bras droit
+[node name="ArmR" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(5, -9, 8, -9, 8, -4, 5, -4)
+color = Color(0.96, 0.94, 0.90, 1)
+
+; Ceinture (1 px brun)
+[node name="Belt" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(-5, -2, 5, -2, 5, -1, -5, -1)
+color = Color(0.52, 0.28, 0.10, 1)
+
+; ── Jambes — animées verticalement ───────────────────────────────────────────
+
+; Pantalon gauche (cyan)
+[node name="LegL" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(-5, -1, -1, -1, -1, 4, -5, 4)
+color = Color(0.22, 0.65, 0.82, 1)
+
+; Botte gauche (marron)
+[node name="BootL" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(-5, 4, -1, 4, -1, 7, -5, 7)
+color = Color(0.50, 0.26, 0.08, 1)
+
+; Pantalon droit
+[node name="LegR" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(1, -1, 5, -1, 5, 4, 1, 4)
+color = Color(0.22, 0.65, 0.82, 1)
+
+; Botte droite
+[node name="BootR" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(1, 4, 5, 4, 5, 7, 1, 7)
+color = Color(0.50, 0.26, 0.08, 1)
+
+; ── Tête (dessinée après le corps = devant) ───────────────────────────────────
+
+; Peau du visage
+[node name="Head" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(-4, -16, 4, -16, 4, -10, -4, -10)
+color = Color(0.95, 0.78, 0.58, 1)
+
+; Oreille gauche
+[node name="EarL" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(-1, -2, 1, -2, 1, 2, -1, 2)
+position = Vector2(-5.0, -13.0)
+color = Color(0.90, 0.72, 0.52, 1)
+
+; Oreille droite
+[node name="EarR" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(-1, -2, 1, -2, 1, 2, -1, 2)
+position = Vector2(4.0, -13.0)
+color = Color(0.90, 0.72, 0.52, 1)
+
+; Oeil gauche (2×2 px sombre)
+[node name="EyeL" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+position = Vector2(-3.0, -14.0)
+color = Color(0.14, 0.09, 0.06, 1)
+
+; Oeil droit
+[node name="EyeR" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+position = Vector2(1.0, -14.0)
+color = Color(0.14, 0.09, 0.06, 1)
+
+; ── Cheveux — dessinés en dernier = par-dessus la tête ───────────────────────
+
+; Masse principale (couronne brune arrondie)
+[node name="Hair" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(-5, -20, 5, -20, 6, -16, 4, -14, -4, -14, -6, -16)
+color = Color(0.65, 0.33, 0.12, 1)
+
+; Reflet clair sur le dessus des cheveux (1 ton plus clair, style SNES)
+[node name="HairHighlight" type="Polygon2D" parent="Visual"]
+polygon = PackedVector2Array(-3, -20, 3, -20, 3, -17, -3, -17)
+color = Color(0.80, 0.48, 0.22, 1)
+
+; ── Collision + Caméra ────────────────────────────────────────────────────────
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
+position = Vector2(0.0, -2.0)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.0, 1.0)
+position_smoothing_enabled = true
+position_smoothing_speed = 5.0

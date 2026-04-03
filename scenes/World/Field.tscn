@@ -1,0 +1,244 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script"      path="res://scripts/World/FieldGround.gd"            id="1"]
+[ext_resource type="PackedScene" path="res://scenes/Characters/Farmer.tscn"          id="2"]
+[ext_resource type="PackedScene" path="res://scenes/Characters/Sheep.tscn"            id="3"]
+[ext_resource type="PackedScene" path="res://scenes/World/FlowerPatch.tscn"           id="4"]
+[ext_resource type="PackedScene" path="res://scenes/World/PixelTree.tscn"             id="5"]
+[ext_resource type="PackedScene" path="res://scenes/World/PixelCloud.tscn"            id="6"]
+[ext_resource type="Script"      path="res://scripts/World/FieldTileMap.gd"           id="7"]
+[ext_resource type="PackedScene" path="res://scenes/Characters/Cow.tscn"              id="8"]
+[ext_resource type="PackedScene" path="res://scenes/Characters/Pig.tscn"              id="9"]
+[ext_resource type="PackedScene" path="res://scenes/Characters/Chicken.tscn"          id="10"]
+[ext_resource type="PackedScene" path="res://scenes/UI/DialogueBox.tscn"              id="11"]
+
+; ── Champ de départ — 640×480 px = 40×30 tuiles de 16 px ─────────────────────
+; y_sort_enabled : arbres, animaux et joueur triés par position Y
+; → passer derrière un arbre le cache automatiquement
+[node name="Field" type="Node2D"]
+y_sort_enabled = true
+
+; ── Sol (TileMapLayer) ────────────────────────────────────────────────────────
+[node name="Ground" type="TileMapLayer" parent="."]
+script  = ExtResource("7")
+z_index = -11
+
+; ── Clôture (Fences.png) ─────────────────────────────────────────────────────
+[node name="FieldGround" type="Node2D" parent="."]
+script       = ExtResource("1")
+z_index      = -10
+field_width  = 640
+field_height = 480
+fence_size   = 16
+
+; ── Fleurs (z=0 — toujours derrière les personnages) ─────────────────────────
+[node name="Flower01" parent="." instance=ExtResource("4")]
+position     = Vector2(48.0, 52.0)
+flower_index = 1
+
+[node name="Flower02" parent="." instance=ExtResource("4")]
+position     = Vector2(144.0, 44.0)
+flower_index = 4
+
+[node name="Flower03" parent="." instance=ExtResource("4")]
+position     = Vector2(256.0, 60.0)
+flower_index = 0
+
+[node name="Flower04" parent="." instance=ExtResource("4")]
+position     = Vector2(48.0, 156.0)
+flower_index = 3
+
+[node name="Flower05" parent="." instance=ExtResource("4")]
+position     = Vector2(176.0, 124.0)
+flower_index = 1
+
+[node name="Flower06" parent="." instance=ExtResource("4")]
+position     = Vector2(352.0, 52.0)
+flower_index = 4
+
+[node name="Flower07" parent="." instance=ExtResource("4")]
+position     = Vector2(448.0, 84.0)
+flower_index = 0
+
+[node name="Flower08" parent="." instance=ExtResource("4")]
+position     = Vector2(560.0, 52.0)
+flower_index = 1
+
+[node name="Flower09" parent="." instance=ExtResource("4")]
+position     = Vector2(608.0, 188.0)
+flower_index = 3
+
+[node name="Flower10" parent="." instance=ExtResource("4")]
+position     = Vector2(512.0, 240.0)
+flower_index = 4
+
+[node name="Flower11" parent="." instance=ExtResource("4")]
+position     = Vector2(368.0, 220.0)
+flower_index = 1
+
+[node name="Flower12" parent="." instance=ExtResource("4")]
+position     = Vector2(176.0, 240.0)
+flower_index = 0
+
+[node name="Flower13" parent="." instance=ExtResource("4")]
+position     = Vector2(48.0, 268.0)
+flower_index = 1
+
+[node name="Flower14" parent="." instance=ExtResource("4")]
+position     = Vector2(272.0, 316.0)
+flower_index = 3
+
+[node name="Flower15" parent="." instance=ExtResource("4")]
+position     = Vector2(480.0, 348.0)
+flower_index = 4
+
+; ── Arbres (z=1 — y_sort avec animaux et joueur) ─────────────────────────────
+[node name="Tree01" parent="." instance=ExtResource("5")]
+position = Vector2(48.0, 48.0)
+z_index  = 1
+
+[node name="Tree02" parent="." instance=ExtResource("5")]
+position = Vector2(192.0, 32.0)
+z_index  = 1
+
+[node name="Tree03" parent="." instance=ExtResource("5")]
+position = Vector2(384.0, 48.0)
+z_index  = 1
+
+[node name="Tree04" parent="." instance=ExtResource("5")]
+position = Vector2(544.0, 32.0)
+z_index  = 1
+
+[node name="Tree05" parent="." instance=ExtResource("5")]
+position = Vector2(32.0, 192.0)
+z_index  = 1
+
+[node name="Tree06" parent="." instance=ExtResource("5")]
+position = Vector2(32.0, 368.0)
+z_index  = 1
+
+[node name="Tree07" parent="." instance=ExtResource("5")]
+position = Vector2(608.0, 128.0)
+z_index  = 1
+
+[node name="Tree08" parent="." instance=ExtResource("5")]
+position = Vector2(608.0, 320.0)
+z_index  = 1
+
+[node name="Tree09" parent="." instance=ExtResource("5")]
+position = Vector2(128.0, 448.0)
+z_index  = 1
+
+[node name="Tree10" parent="." instance=ExtResource("5")]
+position = Vector2(432.0, 448.0)
+z_index  = 1
+
+; ── Brebis (z=1 — y_sort) ────────────────────────────────────────────────────
+[node name="Sheep1" parent="." instance=ExtResource("3")]
+position     = Vector2(80.0, 80.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+[node name="Sheep2" parent="." instance=ExtResource("3")]
+position     = Vector2(192.0, 64.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+[node name="Sheep3" parent="." instance=ExtResource("3")]
+position     = Vector2(80.0, 192.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+[node name="Sheep4" parent="." instance=ExtResource("3")]
+position     = Vector2(304.0, 96.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+[node name="Sheep5" parent="." instance=ExtResource("3")]
+position     = Vector2(224.0, 176.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+[node name="Sheep6" parent="." instance=ExtResource("3")]
+position     = Vector2(96.0, 272.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+; ── Vaches (z=1 — y_sort) ────────────────────────────────────────────────────
+[node name="Cow1" parent="." instance=ExtResource("8")]
+position     = Vector2(400.0, 160.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+[node name="Cow2" parent="." instance=ExtResource("8")]
+position     = Vector2(480.0, 288.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+; ── Cochons (z=1 — y_sort) ───────────────────────────────────────────────────
+[node name="Pig1" parent="." instance=ExtResource("9")]
+position     = Vector2(144.0, 320.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+[node name="Pig2" parent="." instance=ExtResource("9")]
+position     = Vector2(336.0, 400.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+; ── Poules (z=1 — y_sort) ────────────────────────────────────────────────────
+[node name="Chicken1" parent="." instance=ExtResource("10")]
+position     = Vector2(128.0, 128.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+[node name="Chicken2" parent="." instance=ExtResource("10")]
+position     = Vector2(256.0, 352.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+[node name="Chicken3" parent="." instance=ExtResource("10")]
+position     = Vector2(432.0, 400.0)
+z_index      = 1
+field_bounds = Rect2(16, 16, 608, 448)
+
+; ── Nuages (z=10 — toujours au premier plan) ─────────────────────────────────
+[node name="Cloud01" parent="." instance=ExtResource("6")]
+position    = Vector2(80.0, 28.0)
+z_index     = 10
+cloud_color = Color(0.24, 0.50, 0.82, 1)
+drift_speed = -12.0
+wrap_x_min  = -60.0
+wrap_x_max  = 700.0
+
+[node name="Cloud02" parent="." instance=ExtResource("6")]
+position    = Vector2(300.0, 20.0)
+z_index     = 10
+cloud_color = Color(0.28, 0.55, 0.88, 1)
+drift_speed = -9.0
+wrap_x_min  = -60.0
+wrap_x_max  = 700.0
+
+[node name="Cloud03" parent="." instance=ExtResource("6")]
+position    = Vector2(520.0, 34.0)
+z_index     = 10
+cloud_color = Color(0.20, 0.44, 0.76, 1)
+drift_speed = -15.0
+wrap_x_min  = -60.0
+wrap_x_max  = 700.0
+
+[node name="Cloud04" parent="." instance=ExtResource("6")]
+position    = Vector2(650.0, 18.0)
+z_index     = 10
+cloud_color = Color(0.26, 0.52, 0.84, 1)
+drift_speed = -11.0
+wrap_x_min  = -60.0
+wrap_x_max  = 700.0
+
+; ── Joueur (z=1 — y_sort avec les arbres et animaux) ─────────────────────────
+[node name="Player" parent="." instance=ExtResource("2")]
+position = Vector2(320.0, 240.0)
+z_index  = 1
+
+; ── Dialogue (CanvasLayer z=10 — au-dessus de tout) ──────────────────────────
+[node name="DialogueBox" parent="." instance=ExtResource("11")]

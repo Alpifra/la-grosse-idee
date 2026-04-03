@@ -1,0 +1,38 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/Sheep/Sheep.png" id="1"]
+
+; 64x64 — grille 2x2 — frames de 32x32
+[sub_resource type="AtlasTexture" id="f00"]
+atlas = ExtResource("1")
+region = Rect2( 0,  0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f10"]
+atlas = ExtResource("1")
+region = Rect2(32,  0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f01"]
+atlas = ExtResource("1")
+region = Rect2( 0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f11"]
+atlas = ExtResource("1")
+region = Rect2(32, 32, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("f00")}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [
+	{"duration": 1.0, "texture": SubResource("f00")},
+	{"duration": 1.0, "texture": SubResource("f10")},
+	{"duration": 1.0, "texture": SubResource("f01")},
+	{"duration": 1.0, "texture": SubResource("f11")}
+],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
