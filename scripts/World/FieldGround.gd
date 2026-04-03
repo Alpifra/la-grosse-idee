@@ -7,19 +7,28 @@ extends Node2D
 
 # ── Fences.png — 64×64, grille 4×4 de 16×16 ─────────────────────────────────
 # Colonnes = connexion horizontale : 0=aucune, 1=+droite, 2=+gauche+droite, 3=+gauche
-# Lignes   = connexion verticale   : 0=bas seul (y=3..15), 1=haut+bas (y=0..15),
-#                                    2=haut seul (y=0..12), 3=isolé
+# Lignes   = plage Y opaque du poteau :
+#   row 0 → y=3..13  (isolé haut — pas utilisé, post trop court)
+#   row 1 → y=3..15  (connecte vers le bas — bord haut + coins haut)
+#   row 2 → y=0..15  (connecte vers le haut — bord bas + coins bas)
+#   row 3 → y=0..13  (isolé bas — non utilisé)
+#
+# Choix par bord :
+#   Bord HAUT  : row 1 (y=3..15) → le post descend jusqu'au bord du tile,
+#                s'enchaîne sans gap avec R_V (row 1 aussi, y=0..15 au tile suivant)
+#   Bord BAS   : row 2 (y=0..15) → même plage que les coins bas → pas d'excès
+#   Côtés V    : row 1 colonne 0 (y=0..15) → traverse sans coupure
+
 const _FENCE_TEX = preload("res://assets/sprites/Fences.png")
 
-# Sections courantes
-const R_H  := Rect2(32,  0, 16, 16)  ## Tile(2,0) — planche gauche+droite, pas de haut — bords H
-const R_V  := Rect2( 0, 16, 16, 16)  ## Tile(0,1) — poteau plein haut+bas, pas de planches — bords V
+const R_HT := Rect2(32, 16, 16, 16)  ## Tile(2,1) — planches G+D, post y=3..15 — bord haut
+const R_HB := Rect2(32, 32, 16, 16)  ## Tile(2,2) — planches G+D, post y=0..15 — bord bas
+const R_V  := Rect2( 0, 16, 16, 16)  ## Tile(0,1) — post y=0..15, pas de planches — côtés V
 
-# Coins — combinaison de la connexion H (col) et V (ligne)
-const R_TL := Rect2(16,  0, 16, 16)  ## Tile(1,0) — planche droite + bas seul  — coin haut-gauche
-const R_TR := Rect2(48,  0, 16, 16)  ## Tile(3,0) — planche gauche + bas seul  — coin haut-droit
-const R_BL := Rect2(16, 32, 16, 16)  ## Tile(1,2) — planche droite + haut seul — coin bas-gauche
-const R_BR := Rect2(48, 32, 16, 16)  ## Tile(3,2) — planche gauche + haut seul — coin bas-droit
+const R_TL := Rect2(16, 16, 16, 16)  ## Tile(1,1) — planche droite,  post y=3..15 — coin haut-gauche
+const R_TR := Rect2(48, 16, 16, 16)  ## Tile(3,1) — planche gauche,  post y=3..15 — coin haut-droit
+const R_BL := Rect2(16, 32, 16, 16)  ## Tile(1,2) — planche droite,  post y=0..15 — coin bas-gauche
+const R_BR := Rect2(48, 32, 16, 16)  ## Tile(3,2) — planche gauche,  post y=0..15 — coin bas-droit
 
 func _draw() -> void:
 	_draw_fence()
@@ -37,10 +46,10 @@ func _draw_fence() -> void:
 	draw_texture_rect_region(_FENCE_TEX, Rect2(0,       fh - fs, fs, fs), R_BL)
 	draw_texture_rect_region(_FENCE_TEX, Rect2(fw - fs, fh - fs, fs, fs), R_BR)
 
-	# Bords haut et bas — planches horizontales continues (hors coins)
+	# Bords haut et bas — tuiles distinctes selon la direction de connexion verticale
 	for x in range(fs, fw - fs, fs):
-		draw_texture_rect_region(_FENCE_TEX, Rect2(x, 0,       fs, fs), R_H)
-		draw_texture_rect_region(_FENCE_TEX, Rect2(x, fh - fs, fs, fs), R_H)
+		draw_texture_rect_region(_FENCE_TEX, Rect2(x, 0,       fs, fs), R_HT)
+		draw_texture_rect_region(_FENCE_TEX, Rect2(x, fh - fs, fs, fs), R_HB)
 
 	# Bords gauche et droit — poteaux vus de profil (hors coins)
 	for y in range(fs, fh - fs, fs):
