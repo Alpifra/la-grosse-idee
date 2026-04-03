@@ -1,4 +1,3 @@
-class_name TouchControls
 extends CanvasLayer
 
 ## Contrôles tactiles persistants — D-pad (bas-droite) + bouton menu (haut-gauche)
