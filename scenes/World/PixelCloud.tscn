@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/World/PixelCloud.gd" id="1"]
+
+; ── Nuage pixel art — draw_rect uniquement, zéro Polygon2D ───────────────────
+; Tous les visuels sont dessinés par PixelCloud.gd::_draw() en rectangles entiers
+; Couleur exportée (cloud_color) → 3 tons calculés : ombre / corps / reflet
+[node name="PixelCloud" type="Node2D"]
+script = ExtResource("1")

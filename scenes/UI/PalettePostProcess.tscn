@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3]
+
+; ── Post-process palette 32 couleurs + dithering damier ───────────────────────
+;
+; UTILISATION :
+;   Instancier ce nœud dans ta scène principale (Field.tscn, TileWorld.tscn…)
+;   Il s'applique automatiquement sur tout ce qui est rendu en dessous.
+;
+;   Exemple dans TileWorld.tscn :
+;     [node name="PalettePostProcess" parent="." instance=ExtResource("X")]
+;
+; DÉSACTIVER :
+;   Mettre le ColorRect visible = false pour bypasser l'effet.
+
+[ext_resource type="Shader" path="res://shaders/palette_dither.gdshader" id="1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1"]
+shader = ExtResource("1")
+
+; CanvasLayer layer=99 — au-dessus de toute la scène, sous le HUD combat
+[node name="PalettePostProcess" type="CanvasLayer"]
+layer = 99
+
+; ColorRect plein viewport avec le shader palette+dithering
+; mouse_filter=2 (IGNORE) : ne bloque pas les inputs
+; TEXTURE = hint_screen_texture → lit le framebuffer complet
+[node name="ScreenRect" type="ColorRect" parent="."]
+material      = SubResource("ShaderMaterial_1")
+anchor_left   = 0.0
+anchor_top    = 0.0
+anchor_right  = 1.0
+anchor_bottom = 1.0
+mouse_filter  = 2

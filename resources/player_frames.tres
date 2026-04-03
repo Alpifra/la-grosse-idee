@@ -1,0 +1,81 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3]
+
+; ── SpriteFrames joueur — characters_8bit.png 740×493, grille 4×2 ────────────
+; Chaque frame : 185×246 px
+; Ligne 0 (y=0)   → walk cycle (4 frames)
+; Ligne 1 (y=247) → walk cycle variante (4 frames)
+; En jeu : scale ≈ 0.09 → ~17×22 px (≈ 1 tuile 16px)
+
+[ext_resource type="Texture2D" path="res://assets/sprites/characters_8bit.png" id="1"]
+
+; ── Ligne 0 — marche (direction droite) ──────────────────────────────────────
+[sub_resource type="AtlasTexture" id="f0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 185, 246)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f1"]
+atlas = ExtResource("1")
+region = Rect2(185, 0, 185, 246)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2"]
+atlas = ExtResource("1")
+region = Rect2(370, 0, 185, 246)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3"]
+atlas = ExtResource("1")
+region = Rect2(555, 0, 185, 246)
+filter_clip = true
+
+; ── Ligne 1 — marche variante (direction gauche native) ──────────────────────
+[sub_resource type="AtlasTexture" id="f4"]
+atlas = ExtResource("1")
+region = Rect2(0, 247, 185, 246)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f5"]
+atlas = ExtResource("1")
+region = Rect2(185, 247, 185, 246)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f6"]
+atlas = ExtResource("1")
+region = Rect2(370, 247, 185, 246)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f7"]
+atlas = ExtResource("1")
+region = Rect2(555, 247, 185, 246)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [
+	{"duration": 1.0, "texture": SubResource("f0")},
+	{"duration": 1.0, "texture": SubResource("f1")},
+	{"duration": 1.0, "texture": SubResource("f2")},
+	{"duration": 1.0, "texture": SubResource("f3")}
+],
+"loop": true,
+"name": &"walk_right",
+"speed": 8.0
+}, {
+"frames": [
+	{"duration": 1.0, "texture": SubResource("f4")},
+	{"duration": 1.0, "texture": SubResource("f5")},
+	{"duration": 1.0, "texture": SubResource("f6")},
+	{"duration": 1.0, "texture": SubResource("f7")}
+],
+"loop": true,
+"name": &"walk_left",
+"speed": 8.0
+}, {
+"frames": [
+	{"duration": 1.0, "texture": SubResource("f0")}
+],
+"loop": false,
+"name": &"idle",
+"speed": 1.0
+}]

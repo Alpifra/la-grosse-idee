@@ -1,0 +1,223 @@
+[gd_resource type="SpriteFrames" load_steps=34 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/farmer_v5.png" id="1"]
+
+; ── idle_down — ligne 0 (y = 0) ───────────────────────────────────────────────
+[sub_resource type="AtlasTexture" id="a0_0"]
+atlas = ExtResource("1")
+region = Rect2(  0,  0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a0_1"]
+atlas = ExtResource("1")
+region = Rect2( 32,  0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a0_2"]
+atlas = ExtResource("1")
+region = Rect2( 64,  0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a0_3"]
+atlas = ExtResource("1")
+region = Rect2( 96,  0, 32, 32)
+
+; ── idle_left — ligne 1 (y = 32) ──────────────────────────────────────────────
+[sub_resource type="AtlasTexture" id="a1_0"]
+atlas = ExtResource("1")
+region = Rect2(  0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a1_1"]
+atlas = ExtResource("1")
+region = Rect2( 32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a1_2"]
+atlas = ExtResource("1")
+region = Rect2( 64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a1_3"]
+atlas = ExtResource("1")
+region = Rect2( 96, 32, 32, 32)
+
+; ── idle_right — ligne 2 (y = 64) ─────────────────────────────────────────────
+[sub_resource type="AtlasTexture" id="a2_0"]
+atlas = ExtResource("1")
+region = Rect2(  0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a2_1"]
+atlas = ExtResource("1")
+region = Rect2( 32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a2_2"]
+atlas = ExtResource("1")
+region = Rect2( 64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a2_3"]
+atlas = ExtResource("1")
+region = Rect2( 96, 64, 32, 32)
+
+; ── idle_up — ligne 3 (y = 96) ────────────────────────────────────────────────
+[sub_resource type="AtlasTexture" id="a3_0"]
+atlas = ExtResource("1")
+region = Rect2(  0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a3_1"]
+atlas = ExtResource("1")
+region = Rect2( 32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a3_2"]
+atlas = ExtResource("1")
+region = Rect2( 64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a3_3"]
+atlas = ExtResource("1")
+region = Rect2( 96, 96, 32, 32)
+
+; ── walk_down — ligne 4 (y = 128) ─────────────────────────────────────────────
+[sub_resource type="AtlasTexture" id="a4_0"]
+atlas = ExtResource("1")
+region = Rect2(  0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a4_1"]
+atlas = ExtResource("1")
+region = Rect2( 32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a4_2"]
+atlas = ExtResource("1")
+region = Rect2( 64, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a4_3"]
+atlas = ExtResource("1")
+region = Rect2( 96, 128, 32, 32)
+
+; ── walk_left — ligne 5 (y = 160) ─────────────────────────────────────────────
+[sub_resource type="AtlasTexture" id="a5_0"]
+atlas = ExtResource("1")
+region = Rect2(  0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a5_1"]
+atlas = ExtResource("1")
+region = Rect2( 32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a5_2"]
+atlas = ExtResource("1")
+region = Rect2( 64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a5_3"]
+atlas = ExtResource("1")
+region = Rect2( 96, 160, 32, 32)
+
+; ── walk_right — ligne 6 (y = 192) ────────────────────────────────────────────
+[sub_resource type="AtlasTexture" id="a6_0"]
+atlas = ExtResource("1")
+region = Rect2(  0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a6_1"]
+atlas = ExtResource("1")
+region = Rect2( 32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a6_2"]
+atlas = ExtResource("1")
+region = Rect2( 64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a6_3"]
+atlas = ExtResource("1")
+region = Rect2( 96, 192, 32, 32)
+
+; ── walk_up — ligne 7 (y = 224) ───────────────────────────────────────────────
+[sub_resource type="AtlasTexture" id="a7_0"]
+atlas = ExtResource("1")
+region = Rect2(  0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a7_1"]
+atlas = ExtResource("1")
+region = Rect2( 32, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a7_2"]
+atlas = ExtResource("1")
+region = Rect2( 64, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="a7_3"]
+atlas = ExtResource("1")
+region = Rect2( 96, 224, 32, 32)
+
+; ── SpriteFrames ───────────────────────────────────────────────────────────────
+[resource]
+animations = [{
+"frames": [
+	{"duration": 1.0, "texture": SubResource("a0_0")},
+	{"duration": 1.0, "texture": SubResource("a0_1")},
+	{"duration": 1.0, "texture": SubResource("a0_2")},
+	{"duration": 1.0, "texture": SubResource("a0_3")}
+],
+"loop": true,
+"name": &"idle_down",
+"speed": 6.0
+}, {
+"frames": [
+	{"duration": 1.0, "texture": SubResource("a1_0")},
+	{"duration": 1.0, "texture": SubResource("a1_1")},
+	{"duration": 1.0, "texture": SubResource("a1_2")},
+	{"duration": 1.0, "texture": SubResource("a1_3")}
+],
+"loop": true,
+"name": &"idle_left",
+"speed": 6.0
+}, {
+"frames": [
+	{"duration": 1.0, "texture": SubResource("a2_0")},
+	{"duration": 1.0, "texture": SubResource("a2_1")},
+	{"duration": 1.0, "texture": SubResource("a2_2")},
+	{"duration": 1.0, "texture": SubResource("a2_3")}
+],
+"loop": true,
+"name": &"idle_right",
+"speed": 6.0
+}, {
+"frames": [
+	{"duration": 1.0, "texture": SubResource("a3_0")},
+	{"duration": 1.0, "texture": SubResource("a3_1")},
+	{"duration": 1.0, "texture": SubResource("a3_2")},
+	{"duration": 1.0, "texture": SubResource("a3_3")}
+],
+"loop": true,
+"name": &"idle_up",
+"speed": 6.0
+}, {
+"frames": [
+	{"duration": 1.0, "texture": SubResource("a4_0")},
+	{"duration": 1.0, "texture": SubResource("a4_1")},
+	{"duration": 1.0, "texture": SubResource("a4_2")},
+	{"duration": 1.0, "texture": SubResource("a4_3")}
+],
+"loop": true,
+"name": &"walk_down",
+"speed": 8.0
+}, {
+"frames": [
+	{"duration": 1.0, "texture": SubResource("a5_0")},
+	{"duration": 1.0, "texture": SubResource("a5_1")},
+	{"duration": 1.0, "texture": SubResource("a5_2")},
+	{"duration": 1.0, "texture": SubResource("a5_3")}
+],
+"loop": true,
+"name": &"walk_left",
+"speed": 8.0
+}, {
+"frames": [
+	{"duration": 1.0, "texture": SubResource("a6_0")},
+	{"duration": 1.0, "texture": SubResource("a6_1")},
+	{"duration": 1.0, "texture": SubResource("a6_2")},
+	{"duration": 1.0, "texture": SubResource("a6_3")}
+],
+"loop": true,
+"name": &"walk_right",
+"speed": 8.0
+}, {
+"frames": [
+	{"duration": 1.0, "texture": SubResource("a7_0")},
+	{"duration": 1.0, "texture": SubResource("a7_1")},
+	{"duration": 1.0, "texture": SubResource("a7_2")},
+	{"duration": 1.0, "texture": SubResource("a7_3")}
+],
+"loop": true,
+"name": &"walk_up",
+"speed": 8.0
+}]

@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/Oak_Tree.png" id="1"]
+
+; Tronc — bas de l'image (64×20 px)
+[sub_resource type="AtlasTexture" id="trunk_tex"]
+atlas       = ExtResource("1")
+region      = Rect2(0, 60, 64, 20)
+filter_clip = true
+
+; Canopée — haut de l'image (64×60 px)
+[sub_resource type="AtlasTexture" id="canopy_tex"]
+atlas       = ExtResource("1")
+region      = Rect2(0, 0, 64, 60)
+filter_clip = true
+
+; Collision tronc
+[sub_resource type="RectangleShape2D" id="col"]
+size = Vector2(10.0, 18.0)
+
+; ── Arbre — ancre bas-centre du tronc (0,0) ──────────────────────────────────
+; Canopy  z=1 relatif → global z=2 → TOUJOURS devant le joueur (z=1)
+; Trunk   z=0 relatif → global z=1 → trié par Y avec joueur et animaux
+[node name="PixelTree" type="Node2D"]
+
+[node name="Canopy" type="Sprite2D" parent="."]
+texture_filter = 1
+texture        = SubResource("canopy_tex")
+centered       = false
+offset         = Vector2(-32.0, -80.0)
+z_index        = 1
+
+[node name="Trunk" type="Sprite2D" parent="."]
+texture_filter = 1
+texture        = SubResource("trunk_tex")
+centered       = false
+offset         = Vector2(-32.0, -20.0)
+z_index        = 0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0.0, -9.0)
+shape    = SubResource("col")

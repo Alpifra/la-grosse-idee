@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script"      path="res://scripts/World/FieldTileMap.gd"         id="1"]
+[ext_resource type="PackedScene" path="res://scenes/Characters/PlayerAnimated.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/UI/DialogueBox.tscn"            id="3"]
+
+; ── Monde TileMapLayer 320×180 ────────────────────────────────────────────────
+; Tileset 16×16 généré à l'exécution par FieldTileMap.gd
+; Joueur AnimatedSprite2D 4-directions
+; Dialogue NES-style instancié (appel depuis un autre script : $DialogueBox.show_dialogue([...]))
+[node name="TileWorld" type="Node2D"]
+
+; TileMapLayer — généré procéduralement (herbe + chemins)
+[node name="FieldTileMap" type="TileMapLayer" parent="."]
+script   = ExtResource("1")
+z_index  = -1
+
+; Joueur centré sur l'écran
+[node name="Player" parent="." instance=ExtResource("2")]
+position = Vector2(160.0, 90.0)
+z_index  = 1
+
+; Boîte de dialogue (CanvasLayer — toujours au-dessus)
+[node name="DialogueBox" parent="." instance=ExtResource("3")]

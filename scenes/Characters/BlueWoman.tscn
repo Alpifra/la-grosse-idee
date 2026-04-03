@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script"       path="res://scripts/Characters/BlueWomanController.gd" id="1"]
+[ext_resource type="SpriteFrames" path="res://resources/blue_woman_frames.tres"          id="2"]
+
+[sub_resource type="RectangleShape2D" id="col"]
+size = Vector2(14.0, 14.0)
+
+[node name="BlueWoman" type="CharacterBody2D"]
+script = ExtResource("1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames  = ExtResource("2")
+animation      = &"idle_down"
+autoplay       = "idle_down"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.0, 8.0)
+shape    = SubResource("col")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed   = 8.0
