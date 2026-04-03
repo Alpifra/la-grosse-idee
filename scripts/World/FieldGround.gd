@@ -6,13 +6,16 @@ extends Node2D
 @export var fence_size   : int = 16
 
 # ── Fences.png — 64×64, grille 4×4 de 16×16 ─────────────────────────────────
-# Tile (2,0) = Rect2(32,0,16,16) : bras gauche + poteau + bras droit (x=0..15 opaque)
-# C'est le seul tile qui produit une clôture continue — les bras se touchent
-# au bord de chaque tile voisin, sans gap.
+# Colonnes = connexion horizontale : 0=poteau seul, 1=+droit, 2=+gauche+droit, 3=+gauche
+# Lignes   = connexion verticale   : 0=haut, 1=milieu (y=0..15), 2=bas, 3=isolé
+#
+# R_H : Tile(2,0) — planche H + poteau, x=0..15 opaque → tuile haut/bas sans gap
+# R_V : Tile(0,1) — poteau seul y=0..15 → tuile côté gauche/droit (vue de profil top-down :
+#                   les planches partent en profondeur, invisibles — seul le poteau est visible)
 const _FENCE_TEX = preload("res://assets/sprites/Fences.png")
 
-## Tile "section intérieure" — poteau centré avec bras horizontal des deux côtés
-const R_FULL := Rect2(32, 0, 16, 16)
+const R_H := Rect2(32, 0,  16, 16)   ## poteau + planches gauche & droite — bords haut/bas
+const R_V := Rect2( 0, 16, 16, 16)   ## poteau seul pleine hauteur (y=0..15) — bords gauche/droit
 
 func _draw() -> void:
 	_draw_fence()
@@ -20,19 +23,16 @@ func _draw() -> void:
 # ── Clôture ────────────────────────────────────────────────────────────────────
 
 func _draw_fence() -> void:
-	var fw   := field_width
-	var fh   := field_height
-	var fs   := fence_size
-	var half := fs * 0.5
+	var fw := field_width
+	var fh := field_height
+	var fs := fence_size
 
-	# Bords haut et bas — R_FULL tuilé tous les 16 px → continuité garantie
+	# Bords haut et bas — planches horizontales continues
 	for x in range(0, fw, fs):
-		draw_texture_rect_region(_FENCE_TEX, Rect2(x, 0,       fs, fs), R_FULL)
-		draw_texture_rect_region(_FENCE_TEX, Rect2(x, fh - fs, fs, fs), R_FULL)
+		draw_texture_rect_region(_FENCE_TEX, Rect2(x, 0,       fs, fs), R_H)
+		draw_texture_rect_region(_FENCE_TEX, Rect2(x, fh - fs, fs, fs), R_H)
 
-	# Bords gauche et droit — R_FULL pivoté 90° → bras deviennent verticaux
+	# Bords gauche et droit — poteaux vus de profil (planches perpendiculaires à la caméra)
 	for y in range(fs, fh - fs, fs):
-		for x_pos : int in [0, fw - fs]:
-			draw_set_transform(Vector2(x_pos + half, y + half), PI * 0.5, Vector2.ONE)
-			draw_texture_rect_region(_FENCE_TEX, Rect2(-half, -half, fs, fs), R_FULL)
-			draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+		draw_texture_rect_region(_FENCE_TEX, Rect2(0,       y, fs, fs), R_V)
+		draw_texture_rect_region(_FENCE_TEX, Rect2(fw - fs, y, fs, fs), R_V)
