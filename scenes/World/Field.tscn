@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script"      path="res://scripts/World/FieldGround.gd"            id="1"]
 [ext_resource type="PackedScene" path="res://scenes/Characters/Farmer.tscn"          id="2"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://scenes/Characters/Pig.tscn"              id="9"]
 [ext_resource type="PackedScene" path="res://scenes/Characters/Chicken.tscn"          id="10"]
 [ext_resource type="PackedScene" path="res://scenes/UI/DialogueBox.tscn"              id="11"]
+[ext_resource type="Script"      path="res://scripts/World/FieldWater.gd"             id="12"]
 
 ; ── Champ de départ — 640×480 px = 40×30 tuiles de 16 px ─────────────────────
 ; y_sort_enabled : arbres, animaux et joueur triés par position Y
@@ -22,6 +23,11 @@ y_sort_enabled = true
 [node name="Ground" type="TileMapLayer" parent="."]
 script  = ExtResource("7")
 z_index = -11
+
+; ── Eau (lac + rivières + pont) ──────────────────────────────────────────────
+[node name="FieldWater" type="Node2D" parent="."]
+script  = ExtResource("12")
+z_index = -9
 
 ; ── Clôture (Fences.png) ─────────────────────────────────────────────────────
 [node name="FieldGround" type="Node2D" parent="."]
