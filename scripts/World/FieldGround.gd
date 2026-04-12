@@ -43,13 +43,13 @@ func _draw_fence() -> void:
 	# Coins
 	draw_texture_rect_region(_FENCE_TEX, Rect2(0,       0,       fs, fs), R_TL)
 	draw_texture_rect_region(_FENCE_TEX, Rect2(fw - fs, 0,       fs, fs), R_TR)
-	draw_texture_rect_region(_FENCE_TEX, Rect2(0,       fh - fs, fs, fs), R_BL)
-	draw_texture_rect_region(_FENCE_TEX, Rect2(fw - fs, fh - fs, fs, fs), R_BR)
+	draw_texture_rect_region(_FENCE_TEX, Rect2(0,       fh - fs, fs, fs), R_TL)
+	draw_texture_rect_region(_FENCE_TEX, Rect2(fw - fs, fh - fs, fs, fs), R_TR)
 
-	# Bords haut et bas — tuiles distinctes selon la direction de connexion verticale
+	# Bords haut et bas — même tuile (row 1) pour une apparence cohérente
 	for x in range(fs, fw - fs, fs):
 		draw_texture_rect_region(_FENCE_TEX, Rect2(x, 0,       fs, fs), R_HT)
-		draw_texture_rect_region(_FENCE_TEX, Rect2(x, fh - fs, fs, fs), R_HB)
+		draw_texture_rect_region(_FENCE_TEX, Rect2(x, fh - fs, fs, fs), R_HT)
 
 	# Bords gauche et droit — poteaux vus de profil (hors coins)
 	for y in range(fs, fh - fs, fs):
