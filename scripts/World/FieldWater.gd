@@ -42,6 +42,7 @@ func _wt(col: int, row: int) -> Rect2:
 
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_add_water_collision()
 	_print_water_map()
 
 func _input(event: InputEvent) -> void:
@@ -106,6 +107,32 @@ func _draw_wt_at(c: int, r: int, wt_col: int, wt_row: int) -> void:
 	draw_texture_rect_region(_WAT_TILE,
 		Rect2(c * TILE, r * TILE, TILE, TILE),
 		_wt(wt_col, wt_row))
+
+# ── Collisions physiques ──────────────────────────────────────────────────────
+
+## Crée un StaticBody2D enfant avec les formes de collision des plans d'eau.
+## Le pont (rows 2–4) est exclu → passable.
+## Les rivières qui se chevauchent sur col 9 ou cols 22–24 sont couvertes deux fois,
+## ce qui est sans effet négatif pour la physique.
+func _add_water_collision() -> void:
+	var body := StaticBody2D.new()
+	add_child(body)
+	# Lac : cols 3–9, rows 3–9
+	_add_rect(body, Vector2(104, 104), Vector2(7 * TILE, 7 * TILE))
+	# Rivière H : cols 9–39, rows 5–7
+	_add_rect(body, Vector2(392, 104), Vector2(31 * TILE, 3 * TILE))
+	# Rivière V au-dessus du pont : cols 22–24, rows 0–1
+	# (rows 2–4 = pont passable ; rows 5–7 déjà couverts par rivière H)
+	_add_rect(body, Vector2(376, 16), Vector2(3 * TILE, 2 * TILE))
+
+## Ajoute un CollisionShape2D rectangulaire centré sur `center` au StaticBody2D donné.
+func _add_rect(body: StaticBody2D, center: Vector2, size: Vector2) -> void:
+	var cs    := CollisionShape2D.new()
+	var shape := RectangleShape2D.new()
+	shape.size   = size
+	cs.shape     = shape
+	cs.position  = center
+	body.add_child(cs)
 
 # ── Pont ───────────────────────────────────────────────────────────────────────
 

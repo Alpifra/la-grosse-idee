@@ -14,16 +14,17 @@ const IDLE_MAX  : float = 5.0
 
 @onready var _sprite : AnimatedSprite2D = $AnimatedSprite2D
 
-var _target : Vector2
-var _moving := false
-var _timer  := 0.0
+var _target   : Vector2
+var _moving   := false
+var _timer    := 0.0
+var _cur_anim := &""  # Evite les appels play() redondants
 
 func _ready() -> void:
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	position    = position.snapped(Vector2(TILE_SIZE, TILE_SIZE))
 	_target     = position
 	_timer      = randf_range(IDLE_MIN, IDLE_MAX)
-	_sprite.play("idle")
+	_play(&"idle")
 
 func _physics_process(delta: float) -> void:
 	if _moving:
@@ -44,7 +45,7 @@ func _walk(delta: float) -> void:
 		velocity = Vector2.ZERO
 		_moving  = false
 		_timer   = randf_range(IDLE_MIN, IDLE_MAX)
-		_sprite.play("idle")
+		_play(&"idle")
 		return
 
 	velocity = to_target.normalized() * move_speed * TILE_SIZE
@@ -58,7 +59,13 @@ func _walk(delta: float) -> void:
 	if (_target - position).length() >= dist - 0.1:
 		_moving = false
 		_timer  = randf_range(IDLE_MIN, IDLE_MAX)
-		_sprite.play("idle")
+		_play(&"idle")
+
+## Appelle play() uniquement si l'animation change
+func _play(anim: StringName) -> void:
+	if anim != _cur_anim:
+		_cur_anim = anim
+		_sprite.play(anim)
 
 ## Choisit une tuile adjacente dans les bounds
 func _pick_target() -> void:
@@ -72,6 +79,6 @@ func _pick_target() -> void:
 		if field_bounds.has_point(c):
 			_target = c
 			_moving = true
-			_sprite.play("walk")
+			_play(&"walk")
 			return
 	_timer = randf_range(IDLE_MIN, IDLE_MAX)

@@ -30,8 +30,38 @@ const R_TR := Rect2(48, 16, 16, 16)  ## Tile(3,1) — planche gauche,  post y=3.
 const R_BL := Rect2(16, 32, 16, 16)  ## Tile(1,2) — planche droite,  post y=0..15 — coin bas-gauche
 const R_BR := Rect2(48, 32, 16, 16)  ## Tile(3,2) — planche gauche,  post y=0..15 — coin bas-droit
 
+func _ready() -> void:
+	_add_fence_collision()
+
 func _draw() -> void:
 	_draw_fence()
+
+# ── Collisions physiques ──────────────────────────────────────────────────────
+
+## Crée 4 murs invisibles (StaticBody2D) le long du périmètre de la clôture.
+## Le joueur et les animaux ne peuvent pas traverser les barrières.
+func _add_fence_collision() -> void:
+	var body := StaticBody2D.new()
+	add_child(body)
+	var fw  := float(field_width)
+	var fh  := float(field_height)
+	var fs  := float(fence_size)
+	# Bord haut
+	_add_rect(body, Vector2(fw * 0.5, fs * 0.5),       Vector2(fw, fs))
+	# Bord bas
+	_add_rect(body, Vector2(fw * 0.5, fh - fs * 0.5),  Vector2(fw, fs))
+	# Bord gauche
+	_add_rect(body, Vector2(fs * 0.5, fh * 0.5),       Vector2(fs, fh))
+	# Bord droit
+	_add_rect(body, Vector2(fw - fs * 0.5, fh * 0.5),  Vector2(fs, fh))
+
+func _add_rect(body: StaticBody2D, center: Vector2, size: Vector2) -> void:
+	var cs    := CollisionShape2D.new()
+	var shape := RectangleShape2D.new()
+	shape.size  = size
+	cs.shape    = shape
+	cs.position = center
+	body.add_child(cs)
 
 # ── Clôture ────────────────────────────────────────────────────────────────────
 

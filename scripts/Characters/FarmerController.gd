@@ -10,7 +10,8 @@ const WALK_SPEED : float = 100.0
 @onready var _sprite : AnimatedSprite2D = $AnimatedSprite2D
 
 ## Dernière direction mémorisée pour l'animation idle (bas par défaut)
-var _last_dir := Vector2.DOWN
+var _last_dir  := Vector2.DOWN
+var _cur_anim  := &""  # Animation courante — évite les appels play() redondants
 
 func _ready() -> void:
 	add_to_group("player")
@@ -42,14 +43,24 @@ func _read_input() -> Vector2:
 
 ## Animation de marche selon la direction
 func _play_walk_anim(dir: Vector2) -> void:
-	if   dir == Vector2.LEFT:  _sprite.play("walk_left")
-	elif dir == Vector2.RIGHT: _sprite.play("walk_right")
-	elif dir == Vector2.UP:    _sprite.play("walk_up")
-	elif dir == Vector2.DOWN:  _sprite.play("walk_down")
+	var anim: StringName
+	if   dir == Vector2.LEFT:  anim = &"walk_left"
+	elif dir == Vector2.RIGHT: anim = &"walk_right"
+	elif dir == Vector2.UP:    anim = &"walk_up"
+	else:                      anim = &"walk_down"
+	_play(anim)
 
 ## Animation idle selon la dernière direction regardée
 func _play_idle_anim() -> void:
-	if   _last_dir == Vector2.LEFT:  _sprite.play("idle_left")
-	elif _last_dir == Vector2.RIGHT: _sprite.play("idle_right")
-	elif _last_dir == Vector2.UP:    _sprite.play("idle_up")
-	else:                             _sprite.play("idle_down")
+	var anim: StringName
+	if   _last_dir == Vector2.LEFT:  anim = &"idle_left"
+	elif _last_dir == Vector2.RIGHT: anim = &"idle_right"
+	elif _last_dir == Vector2.UP:    anim = &"idle_up"
+	else:                            anim = &"idle_down"
+	_play(anim)
+
+## Appelle play() uniquement si l'animation change — évite un appel inutile à 60 fps
+func _play(anim: StringName) -> void:
+	if anim != _cur_anim:
+		_cur_anim = anim
+		_sprite.play(anim)
